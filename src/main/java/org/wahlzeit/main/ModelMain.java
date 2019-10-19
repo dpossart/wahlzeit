@@ -95,6 +95,7 @@ public abstract class ModelMain extends AbstractMain {
 	 *
 	 */
 	protected void createUser(String userId, String nickName, String emailAddress, String photoDir) {
+		
 		UserManager userManager = UserManager.getInstance();
 		User user = new User(userId, nickName, emailAddress);
 
