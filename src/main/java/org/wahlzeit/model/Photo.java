@@ -125,8 +125,10 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
-	public Location location;
+	private Location location;
 	
+	
+
 	/**
 	 *
 	 */
@@ -407,6 +409,14 @@ public class Photo extends DataObject {
 
 	public void setEnding(String ending) {
 		this.ending = ending;
+	}
+	
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	/**

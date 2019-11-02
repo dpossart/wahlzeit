@@ -64,6 +64,12 @@ public class Coordinate {
 		return Math.sqrt(sum);
 	}
 	
+	/*
+	 * TODO 
+	 * - do an actual comparsion based on the double fields
+	 * - forward equals() properly by overwriting the hashCode() method
+	 */
+	
 	protected boolean isEqual(Coordinate coord2) {
 		return equals(coord2);
 	}

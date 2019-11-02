@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 by Dennis Possart
+ * Copyright (c) 2019 by Dennis Possart, http://dirkriehle.com
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -18,20 +18,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package org.wahlzeit.model;
+package org.wahlzeit.services.mailing;
 
-public class Location{
-	private Coordinate coordinate;
-	
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-	public void setCoordinate(Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ EmailServiceTest.class })
+public class EmailServiceTestSuite {
 
-	public Location(Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
 }

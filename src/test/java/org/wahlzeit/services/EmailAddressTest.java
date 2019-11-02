@@ -20,6 +20,8 @@
 
 package org.wahlzeit.services;
 
+import javax.mail.internet.InternetAddress;
+
 import junit.framework.TestCase;
 
 /**
@@ -33,12 +35,13 @@ public class EmailAddressTest extends TestCase {
 	public EmailAddressTest(String name) {
 		super(name);
 	}
-
+	
 	/**
 	 *
 	 */
 	public void testGetEmailAddressFromString() {
-		// invalid email addresses are allowed for local testing and online avoided by Google
+		// invalid email addresses are allowed for local testing and online avoided by
+		// Google
 
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo"));
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo.com"));
@@ -65,6 +68,18 @@ public class EmailAddressTest extends TestCase {
 	public void testEmptyEmailAddress() {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
+	
+	/**
+	 *
+	 */
+	public void testIsEqual() {
+		EmailAddress ea = EmailAddress.getFromString("test@test.de");
+		
+		EmailAddress ea2 = EmailAddress.getFromString("test2@test.de");
+		EmailAddress ea3 = EmailAddress.getFromString("test@test.de");
+		
+		assertFalse(ea.isEqual(ea2));
+		assertTrue(ea.isEqual(ea3));
+	}
 
 }
-
