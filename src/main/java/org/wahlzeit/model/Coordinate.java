@@ -20,57 +20,32 @@
 
 package org.wahlzeit.model;
 
-public class Coordinate {
+public interface Coordinate {
 
-	private double x;
-	private double y;
-	private double z;
-	
-	public Coordinate(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-	
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getZ() {
-		return z;
-	}
-
-	public void setZ(double z) {
-		this.z = z;
-	}
-	
-	protected double getDistance(Coordinate coord2) {
-		double xDif = Math.pow(coord2.x-x, 2);
-		double yDif = Math.pow(coord2.y-y, 2);
-		double zDif = Math.pow(coord2.z-z, 2);
-		double sum = xDif+yDif+zDif;
-		return Math.sqrt(sum);
-	}
-	
-	/*
-	 * TODO 
-	 * - do an actual comparsion based on the double fields
-	 * - forward equals() properly by overwriting the hashCode() method
+	/**
+	 * @methodtype conversion
 	 */
+	public CartesianCoordinate asCartesianCoordinate();
 	
-	protected boolean isEqual(Coordinate coord2) {
-		return equals(coord2);
-	}
+	/**
+	 * @methodtype get
+	 */
+	public double getCartesianDistance(Coordinate coord);
+	
+	/**
+	 * @methodtype conversion
+	 */
+	public SphericCoordinate asSphericCoordinate();
+	
+	/**
+	 * @methodtype get
+	 */
+	public double getCentralAngle(Coordinate coord);
+	
+	/**
+	 * @methodtype comparsion
+	 */
+	public boolean isEqual(Coordinate coord);
+	
+	
 }

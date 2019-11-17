@@ -24,6 +24,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.wahlzeit.handlers.TellFriendTest;
 import org.wahlzeit.model.AccessRightsTest;
+import org.wahlzeit.model.CartesianCoordinate;
+import org.wahlzeit.model.CartesianCoordinateTest;
 import org.wahlzeit.model.ChessPlayerPhotoFactoryTest;
 import org.wahlzeit.model.ChessPlayerPhotoManagerTest;
 import org.wahlzeit.model.ChessPlayerPhotoTest;
@@ -31,6 +33,7 @@ import org.wahlzeit.model.FlagReasonTest;
 import org.wahlzeit.model.GenderTest;
 import org.wahlzeit.model.GuestTest;
 import org.wahlzeit.model.PhotoFilterTest;
+import org.wahlzeit.model.SphericCoordinateTest;
 import org.wahlzeit.model.TagsTest;
 import org.wahlzeit.model.UserStatusTest;
 import org.wahlzeit.model.ValueTest;
@@ -48,6 +51,7 @@ import org.wahlzeit.utils.VersionTest;
 		// package model
 		AccessRightsTest.class, FlagReasonTest.class, GenderTest.class, GuestTest.class, PhotoFilterTest.class,
 		TagsTest.class, UserStatusTest.class, ValueTest.class, ChessPlayerPhotoTest.class, ChessPlayerPhotoFactoryTest.class,
+		SphericCoordinateTest.class, CartesianCoordinateTest.class,
 		// package model.persistence
 		DatastoreAdapterTest.class,
 		// package services
