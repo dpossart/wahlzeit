@@ -20,14 +20,13 @@
 
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	private double phi;
 	private double theta;
 	private double radius;
 
 	public SphericCoordinate(double phi, double theta, double radius) {
-
 		if ((Double.isNaN(phi)) || (Double.isNaN(theta)) || (Double.isNaN(radius)) || (Double.isInfinite(phi))
 				|| (Double.isInfinite(theta)) || (Double.isInfinite(radius))) {
 			throw new IllegalArgumentException("NaN or infinity");
@@ -50,56 +49,10 @@ public class SphericCoordinate implements Coordinate {
 		return new CartesianCoordinate(x, y, z);
 	}
 
-	@Override
-	public double getCartesianDistance(Coordinate coord) {
-		return asCartesianCoordinate().getCartesianDistance(coord);
-	}
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		return this;
-	}
-
-	@Override
-	public double getCentralAngle(Coordinate coord) {
-		SphericCoordinate coord2 = coord.asSphericCoordinate();
-
-		double deltaPhi = Math.abs(coord2.phi - phi);
-		double sinTheta = Math.sin(theta) * Math.sin(coord2.theta);
-		double cosTheta = Math.cos(theta) * Math.cos(coord2.theta);
-
-		return Math.acos(sinTheta + cosTheta * Math.cos(deltaPhi));
-	}
-
-	@Override
-	public boolean isEqual(Coordinate coord) {
-		return this.equals(coord);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof SphericCoordinate)) {
-			return false;
-		}
-
-		SphericCoordinate coord2 = (SphericCoordinate) obj;
-		boolean isEqualPhi = Double.compare(this.phi, coord2.phi) == 0;
-		boolean isEqualTheta = Double.compare(this.theta, coord2.theta) == 0;
-		boolean isEqualRadius = Double.compare(this.radius, coord2.radius) == 0;
-
-		return isEqualPhi && isEqualTheta && isEqualRadius;
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = 17;
-		hash = 31 * hash + (int) phi;
-		hash = 31 * hash + (int) theta;
-		hash = 31 * hash + (int) radius;
-		return hash;
 	}
 
 	/**

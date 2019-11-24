@@ -20,7 +20,7 @@
 
 package org.wahlzeit.model;
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private double x;
 	private double y;
@@ -43,21 +43,6 @@ public class CartesianCoordinate implements Coordinate {
 	}
 
 	@Override
-	public double getCartesianDistance(Coordinate coord) {
-		CartesianCoordinate coord2 = coord.asCartesianCoordinate();
-
-		double difX = coord2.x - x;
-		double difY = coord2.y - y;
-		double difZ = coord2.z - z;
-		
-		double distX = difX*difX;
-		double distY = difY*difY;
-		double distZ = difZ*difZ;
-
-		return Math.sqrt(distX + distY + distZ);
-	}
-
-	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		double quadSum = x*x + y*y+ z*z;
 		double radius = Math.sqrt(quadSum);
@@ -65,42 +50,6 @@ public class CartesianCoordinate implements Coordinate {
 		double theta = Math.acos(z / radius);
 
 		return new SphericCoordinate(phi, theta, radius);
-	}
-
-	@Override
-	public double getCentralAngle(Coordinate coord) {
-		return asSphericCoordinate().getCentralAngle(coord);
-	}
-
-	@Override
-	public boolean isEqual(Coordinate coord) {
-		return this.equals(coord);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof CartesianCoordinate)) {
-			return false;
-		}
-
-		CartesianCoordinate coord2 = (CartesianCoordinate) obj;
-		boolean isEqualX = Double.compare(this.x, coord2.x) == 0;
-		boolean isEqualY = Double.compare(this.y, coord2.y) == 0;
-		boolean isEqualZ = Double.compare(this.z, coord2.z) == 0;
-
-		return isEqualX && isEqualY && isEqualZ;
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = 17;
-		hash = 31 * hash + (int) x;
-		hash = 31 * hash + (int) y;
-		hash = 31 * hash + (int) z;
-		return hash;
 	}
 
 	/**
