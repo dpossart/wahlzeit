@@ -26,29 +26,45 @@ public class SphericCoordinate extends AbstractCoordinate {
 	private double theta;
 	private double radius;
 
+	/**
+	 * @methodtype constructor
+	 * @param phi    valid finite double value within the range of 0.0 and 360.0
+	 * @param theta  valid finite double value within the range of 0.0 and 360.0
+	 * @param radius valid positive finite double value
+	 * @return SphericCoordinate
+	 */
 	public SphericCoordinate(double phi, double theta, double radius) {
-		if ((Double.isNaN(phi)) || (Double.isNaN(theta)) || (Double.isNaN(radius)) || (Double.isInfinite(phi))
-				|| (Double.isInfinite(theta)) || (Double.isInfinite(radius))) {
-			throw new IllegalArgumentException("NaN or infinity");
+		if (Double.isNaN(radius) || Double.isNaN(phi) || Double.isNaN(theta)) {
+			throw new IllegalArgumentException("NaN value occurred");
 		}
 
-		if ((radius < 0) || (phi < 0) || (phi > 360) || (theta < 0) || (theta > 360)) {
-			throw new IllegalArgumentException("only positives allowed, theta & phi 0-360");
+		if (Double.isInfinite(radius) || Double.isInfinite(phi) || Double.isInfinite(theta)) {
+			throw new IllegalArgumentException("infinity value occurred");
+		}
+
+		if (radius < 0.0 || phi < 0.0 || theta < 0.0) {
+			throw new IllegalArgumentException("negative value occurred");
+		}
+
+		if (phi > 360.0 || theta > 360.0) {
+			throw new IllegalArgumentException("phi or theta is bigger than 360.0");
 		}
 
 		this.phi = phi;
 		this.theta = theta;
 		this.radius = radius;
+		assertClassInvariants();
 	}
 
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
+		assertClassInvariants();
 		double x = radius * Math.cos(phi) * Math.sin(theta);
 		double y = radius * Math.sin(phi) * Math.sin(theta);
 		double z = radius * Math.cos(theta);
+		assertClassInvariants();
 		return new CartesianCoordinate(x, y, z);
 	}
-
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
@@ -74,6 +90,24 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 */
 	public double getRadius() {
 		return radius;
+	}
+
+	@Override
+	protected void assertClassInvariants() {
+		assert !Double.isNaN(radius);
+		assert !Double.isNaN(phi);
+		assert !Double.isNaN(theta);
+
+		assert Double.isFinite(radius);
+		assert Double.isFinite(phi);
+		assert Double.isFinite(theta);
+
+		assert radius >= 0.0;
+		assert phi >= 0.0;
+		assert theta >= 0.0;
+
+		assert phi <= 360.0;
+		assert theta <= 360.0;
 	}
 
 }

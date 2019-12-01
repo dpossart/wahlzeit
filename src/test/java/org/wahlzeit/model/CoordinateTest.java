@@ -23,7 +23,7 @@ public class CoordinateTest {
 		
 		try {
 			cc = new CartesianCoordinate(validX, validY, validZ);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			hasFailed = true;
 		}
 		assertNotNull(cc);
@@ -37,7 +37,7 @@ public class CoordinateTest {
 		
 		try {
 			sc = new SphericCoordinate(validPhi, validTheta, validR);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			hasFailed = true;
 		}
 		
@@ -114,5 +114,5 @@ public class CoordinateTest {
 		assertTrue(isEqual5);
 	}
 	
-
+	
 }

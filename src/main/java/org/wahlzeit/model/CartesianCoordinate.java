@@ -26,15 +26,26 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	private double y;
 	private double z;
 
+	/**
+	 * @methodtype constructor
+	 * @param x valid finite double value
+	 * @param y valid finite double value
+	 * @param z valid finite double value
+	 * @return CartesianCoordinate
+	 */
 	public CartesianCoordinate(double x, double y, double z) {
-		if ((Double.isNaN(x)) || (Double.isNaN(y)) || (Double.isNaN(z)) || (Double.isInfinite(x))
-				|| (Double.isInfinite(y)) || (Double.isInfinite(x))) {
-			throw new IllegalArgumentException("NaN or Infinity");
+		if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) {
+			throw new IllegalArgumentException("NaN value occurred");
 		}
 
+		if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isInfinite(z)) {
+			throw new IllegalArgumentException("infinity value occurred");
+		}
+		
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		assertClassInvariants();
 	}
 
 	@Override
@@ -44,11 +55,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
-		double quadSum = x*x + y*y+ z*z;
+		assertClassInvariants();
+		double quadSum = x * x + y * y + z * z;
 		double radius = Math.sqrt(quadSum);
 		double phi = Math.atan2(y, x);
 		double theta = Math.acos(z / radius);
-
+		assertClassInvariants();
 		return new SphericCoordinate(phi, theta, radius);
 	}
 
@@ -71,6 +83,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public double getZ() {
 		return z;
+	}
+
+	@Override
+	protected void assertClassInvariants() {
+		assert !Double.isNaN(x);
+		assert !Double.isNaN(y);
+		assert !Double.isNaN(z);
+
+		assert Double.isFinite(x);
+		assert Double.isFinite(y);
+		assert Double.isFinite(z);
 	}
 
 }
