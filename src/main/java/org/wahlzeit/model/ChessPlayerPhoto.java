@@ -63,8 +63,13 @@ public class ChessPlayerPhoto extends Photo {
 	}
 
 	protected void validateString(String str) {
-		boolean areLetters = str.chars().allMatch(Character::isLetter);
-		if (!areLetters) {
+		boolean isValid = true;
+		for(char c : str.toCharArray()) {
+			if(Character.isDigit(c)&& (c!=" ".charAt(0))) {
+				isValid = false;
+			}
+		}
+		if (!isValid) {
 			throw new IllegalArgumentException("invalid String contains digits=" + str);
 		}
 

@@ -51,7 +51,9 @@ import org.wahlzeit.utils.VersionTest;
 		TellFriendTest.class,
 		// package model
 		AccessRightsTest.class, FlagReasonTest.class, GenderTest.class, GuestTest.class, PhotoFilterTest.class,
-		TagsTest.class, UserStatusTest.class, ValueTest.class, ChessPlayerPhotoTest.class, ChessPlayerPhotoFactoryTest.class,
+		TagsTest.class, UserStatusTest.class, ValueTest.class, 
+		//TODO fix no api enviroment issue 
+		ChessPlayerPhotoTest.class, ChessPlayerPhotoFactoryTest.class,
 		CoordinateTest.class,
 		// package model.persistence
 		DatastoreAdapterTest.class,
