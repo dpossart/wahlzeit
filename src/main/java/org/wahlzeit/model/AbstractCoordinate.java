@@ -20,17 +20,25 @@
 
 package org.wahlzeit.model;
 
+import java.util.logging.Logger;
+
 public abstract class AbstractCoordinate implements Coordinate {
+
+	private static final Logger log = Logger.getLogger(AbstractCoordinate.class.getName());
 
 	public static final double MAXDELTA = 0.001;
 
 	@Override
 	public double getCartesianDistance(Coordinate coord) {
-		assertCoordinateIsNull(coord);
+		assertCoordinateIsNotNull(coord);
 		assertClassInvariants();
 
 		CartesianCoordinate cur = this.asCartesianCoordinate();
 		CartesianCoordinate coord2 = coord.asCartesianCoordinate();
+		if (cur == null || coord2 == null) {
+			log.warning("getCartesianDistance failed");
+			return Double.NaN;
+		}
 
 		double difX = coord2.getX() - cur.getX();
 		double difY = coord2.getY() - cur.getY();
@@ -52,11 +60,15 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public double getCentralAngle(Coordinate coord) {
-		assertCoordinateIsNull(coord);
+		assertCoordinateIsNotNull(coord);
 		assertClassInvariants();
 
 		SphericCoordinate cur = this.asSphericCoordinate();
 		SphericCoordinate coord2 = coord.asSphericCoordinate();
+		if (cur == null || coord2 == null) {
+			log.warning("getCentralAngle failed");
+			return Double.NaN;
+		}
 
 		double deltaPhi = Math.abs(coord2.getPhi() - cur.getPhi());
 		double sinTheta = Math.sin(cur.getTheta()) * Math.sin(coord2.getTheta());
@@ -91,6 +103,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		CartesianCoordinate cur = this.asCartesianCoordinate();
 		Coordinate coord = (Coordinate) obj;
 		CartesianCoordinate coord2 = coord.asCartesianCoordinate();
+
 		boolean isEqualX = Math.abs(cur.getX() - coord2.getX()) < MAXDELTA;
 		boolean isEqualY = Math.abs(cur.getY() - coord2.getY()) < MAXDELTA;
 		boolean isEqualZ = Math.abs(cur.getZ() - coord2.getZ()) < MAXDELTA;
@@ -107,10 +120,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 		hash = 31 * hash + (int) cur.getZ();
 		return hash;
 	}
-	
-	protected void assertCoordinateIsNull(Coordinate coord) {
-		if(coord == null) {
-			throw new IllegalArgumentException("coordinate is null");
+
+	protected void assertCoordinateIsNotNull(Coordinate coord) {
+		if (coord == null) {
+			throw new IllegalArgumentException("coordinate as null is not allowed");
 		}
 	}
 

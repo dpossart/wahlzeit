@@ -26,7 +26,7 @@ public interface Coordinate {
 	 * converts the current coordinate to a cartesian coordinate
 	 * 
 	 * @methodtype conversion
-	 * @return CartesianCoordinate
+	 * @return CartesianCoordinate or null if the conversion failed
 	 */
 	public CartesianCoordinate asCartesianCoordinate();
 
@@ -35,7 +35,7 @@ public interface Coordinate {
 	 * 
 	 * @methodtype get
 	 * @param coord valid interpretation of a coordinate
-	 * @return the cartesian distance
+	 * @return the cartesian distance or NaN if the calculation failed
 	 */
 	public double getCartesianDistance(Coordinate coord);
 
@@ -43,7 +43,7 @@ public interface Coordinate {
 	 * converts the current coordinate to a spheric coordinate
 	 * 
 	 * @methodtype conversion
-	 * @return SphericCoordinate
+	 * @return SphericCoordinate or null if the conversion failed
 	 */
 	public SphericCoordinate asSphericCoordinate();
 
@@ -52,7 +52,7 @@ public interface Coordinate {
 	 * 
 	 * @methodtype get
 	 * @param coord valid interpretation of a coordinate
-	 * @return the central angle
+	 * @return the central angle or NaN if the calculation failed
 	 */
 	public double getCentralAngle(Coordinate coord);
 

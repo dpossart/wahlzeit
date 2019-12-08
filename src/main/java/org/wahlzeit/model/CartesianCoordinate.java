@@ -20,7 +20,11 @@
 
 package org.wahlzeit.model;
 
+import java.util.logging.Logger;
+
 public class CartesianCoordinate extends AbstractCoordinate {
+
+	private static final Logger log = Logger.getLogger(CartesianCoordinate.class.getName());
 
 	private double x;
 	private double y;
@@ -41,7 +45,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isInfinite(z)) {
 			throw new IllegalArgumentException("infinity value occurred");
 		}
-		
+
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -61,7 +65,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double phi = Math.atan2(y, x);
 		double theta = Math.acos(z / radius);
 		assertClassInvariants();
-		return new SphericCoordinate(phi, theta, radius);
+		SphericCoordinate sc;
+		try {
+			sc = new SphericCoordinate(phi, theta, radius);
+		} catch (IllegalArgumentException e) {
+			log.warning("spheric coordinate conversion failed: " + e.getMessage());
+			return null;
+		}
+		return sc;
 	}
 
 	/**

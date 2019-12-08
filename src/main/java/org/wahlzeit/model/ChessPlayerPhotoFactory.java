@@ -25,20 +25,20 @@ import java.util.logging.Logger;
 import org.wahlzeit.services.LogBuilder;
 
 public class ChessPlayerPhotoFactory extends PhotoFactory {
-	
-	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
-	
+
+	private static final Logger log = Logger.getLogger(ChessPlayerPhotoFactory.class.getName());
+
 	private static ChessPlayerPhotoFactory instance = null;
-	
+
 	protected ChessPlayerPhotoFactory() {
 		super();
 	}
-	
+
 	public static void initialize() {
-		getInstance(); 
-		
+		getInstance();
+
 	}
-	
+
 	public static synchronized ChessPlayerPhotoFactory getInstance() {
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting ChessPlayerPhotoFactory").toString());
@@ -47,7 +47,7 @@ public class ChessPlayerPhotoFactory extends PhotoFactory {
 
 		return instance;
 	}
-	
+
 	protected static synchronized void setInstance(ChessPlayerPhotoFactory photoFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize ChessPlayerPhotoFactory twice");
@@ -57,11 +57,25 @@ public class ChessPlayerPhotoFactory extends PhotoFactory {
 	}
 
 	public ChessPlayerPhoto createPhoto(String playerName, String place, int year) {
-		return new ChessPlayerPhoto(playerName, place, year);
+		ChessPlayerPhoto cp;
+		try {
+			cp = new ChessPlayerPhoto(playerName, place, year);
+		} catch (IllegalArgumentException e) {
+			log.warning("creation of ChessPlayerPhoto failed: " + e.getMessage());
+			return null;
+		}
+		return cp;
 	}
 
 	public ChessPlayerPhoto createPhoto(PhotoId id, String playerName, String place, int year) {
-		return new ChessPlayerPhoto(id, playerName, place, year);
+		ChessPlayerPhoto cp;
+		try {
+			cp = new ChessPlayerPhoto(id, playerName, place, year);
+		} catch (IllegalArgumentException e) {
+			log.warning("creation of ChessPlayerPhoto failed: " + e.getMessage());
+			return null;
+		}
+		return cp;
 	}
 
 //	@Override

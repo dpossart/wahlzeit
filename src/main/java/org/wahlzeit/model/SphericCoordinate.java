@@ -20,7 +20,11 @@
 
 package org.wahlzeit.model;
 
+import java.util.logging.Logger;
+
 public class SphericCoordinate extends AbstractCoordinate {
+
+	private static final Logger log = Logger.getLogger(SphericCoordinate.class.getName());
 
 	private double phi;
 	private double theta;
@@ -39,15 +43,15 @@ public class SphericCoordinate extends AbstractCoordinate {
 		}
 
 		if (Double.isInfinite(radius) || Double.isInfinite(phi) || Double.isInfinite(theta)) {
-			throw new IllegalArgumentException("infinity value occurred");
+			throw new IllegalArgumentException("infinity values occurred");
 		}
 
 		if (radius < 0.0 || phi < 0.0 || theta < 0.0) {
-			throw new IllegalArgumentException("negative value occurred");
+			throw new IllegalArgumentException("negatives are not allowed");
 		}
 
 		if (phi > 360.0 || theta > 360.0) {
-			throw new IllegalArgumentException("phi or theta is bigger than 360.0");
+			throw new IllegalArgumentException("phi or theta can't be bigger than 360.0");
 		}
 
 		this.phi = phi;
@@ -63,7 +67,14 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double y = radius * Math.sin(phi) * Math.sin(theta);
 		double z = radius * Math.cos(theta);
 		assertClassInvariants();
-		return new CartesianCoordinate(x, y, z);
+		CartesianCoordinate cc;
+		try {
+			cc = new CartesianCoordinate(x, y, z);
+		} catch (IllegalArgumentException e) {
+			log.warning("cartesian coordinate conversion failed: " + e.getMessage());
+			return null;
+		}
+		return cc;
 	}
 
 	@Override
