@@ -20,15 +20,18 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
-public class SphericCoordinate extends AbstractCoordinate {
+public final class SphericCoordinate extends AbstractCoordinate {
 
 	private static final Logger log = Logger.getLogger(SphericCoordinate.class.getName());
 
-	private double phi;
-	private double theta;
-	private double radius;
+	private static HashMap<String, SphericCoordinate> scoordMap = new HashMap<String, SphericCoordinate>();
+
+	private final double phi;
+	private final double theta;
+	private final double radius;
 
 	/**
 	 * @methodtype constructor
@@ -37,7 +40,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius valid positive finite double value
 	 * @return SphericCoordinate
 	 */
-	public SphericCoordinate(double phi, double theta, double radius) {
+	private SphericCoordinate(double phi, double theta, double radius) {
 		if (Double.isNaN(radius) || Double.isNaN(phi) || Double.isNaN(theta)) {
 			throw new IllegalArgumentException("NaN value occurred");
 		}
@@ -60,6 +63,21 @@ public class SphericCoordinate extends AbstractCoordinate {
 		assertClassInvariants();
 	}
 
+	public static SphericCoordinate getSphericCoordinate(double phi, double theta, double radius) {
+		String key = "" + phi + theta + radius;
+		SphericCoordinate res = scoordMap.get(key);
+		if (res == null) {
+			synchronized (scoordMap) {
+				res = scoordMap.get(key);
+				if (res == null) {
+					res = new SphericCoordinate(phi, theta, radius);
+					scoordMap.put(key, res);
+				}
+			}
+		}
+		return res;
+	}
+
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
 		assertClassInvariants();
@@ -69,7 +87,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		assertClassInvariants();
 		CartesianCoordinate cc;
 		try {
-			cc = new CartesianCoordinate(x, y, z);
+			cc = CartesianCoordinate.getCartesianCoordinate(x, y, z);
 		} catch (IllegalArgumentException e) {
 			log.warning("cartesian coordinate conversion failed: " + e.getMessage());
 			return null;

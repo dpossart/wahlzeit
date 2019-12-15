@@ -20,15 +20,17 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
-public class CartesianCoordinate extends AbstractCoordinate {
+public final class CartesianCoordinate extends AbstractCoordinate {
 
 	private static final Logger log = Logger.getLogger(CartesianCoordinate.class.getName());
+	private static HashMap<String, CartesianCoordinate> ccoordMap = new HashMap<String, CartesianCoordinate>();
 
-	private double x;
-	private double y;
-	private double z;
+	private final double x;
+	private final double y;
+	private final double z;
 
 	/**
 	 * @methodtype constructor
@@ -37,7 +39,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z valid finite double value
 	 * @return CartesianCoordinate
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) {
 			throw new IllegalArgumentException("NaN value occurred");
 		}
@@ -50,6 +52,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.y = y;
 		this.z = z;
 		assertClassInvariants();
+	}
+
+	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
+		String key = ""+ x + y + z;
+		CartesianCoordinate res = ccoordMap.get(key);
+		if (res == null) {
+			synchronized (ccoordMap) {
+				res = ccoordMap.get(key);
+				if (res == null) {
+					res = new CartesianCoordinate(x, y, z);
+					ccoordMap.put(key, res);
+				}
+			}
+		}
+		return res;
 	}
 
 	@Override
@@ -67,7 +84,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		assertClassInvariants();
 		SphericCoordinate sc;
 		try {
-			sc = new SphericCoordinate(phi, theta, radius);
+			sc = SphericCoordinate.getSphericCoordinate(phi, theta, radius);
 		} catch (IllegalArgumentException e) {
 			log.warning("spheric coordinate conversion failed: " + e.getMessage());
 			return null;

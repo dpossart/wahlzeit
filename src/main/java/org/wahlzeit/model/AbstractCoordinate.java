@@ -92,7 +92,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (obj == null || !(obj instanceof Coordinate)) {
 			return false;
 		}
 

@@ -22,7 +22,7 @@ public class CoordinateTest {
 		boolean hasFailed = false;
 		
 		try {
-			cc = new CartesianCoordinate(validX, validY, validZ);
+			cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
 		} catch (Exception e) {
 			hasFailed = true;
 		}
@@ -36,7 +36,7 @@ public class CoordinateTest {
 		boolean hasFailed = false;
 		
 		try {
-			sc = new SphericCoordinate(validPhi, validTheta, validR);
+			sc = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);
 		} catch (Exception e) {
 			hasFailed = true;
 		}
@@ -47,7 +47,7 @@ public class CoordinateTest {
 
 	@Test
 	public void testAsSphericCoordinate() {
-		CartesianCoordinate cc = new CartesianCoordinate(validX, validY, validZ);
+		CartesianCoordinate cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
 		SphericCoordinate sc = cc.asSphericCoordinate();
 		
 		double delta = SphericCoordinate.MAXDELTA;
@@ -59,7 +59,7 @@ public class CoordinateTest {
 	
 	@Test
 	public void testAsCartesianCoordinate() {
-		SphericCoordinate sc = new SphericCoordinate(validPhi, validTheta, validR);
+		SphericCoordinate sc = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);;
 		
 		CartesianCoordinate cc = sc.asCartesianCoordinate();
 		
@@ -73,8 +73,8 @@ public class CoordinateTest {
 
 	@Test
 	public void testGetCartesianDistance() {
-		CartesianCoordinate cc = new CartesianCoordinate(validX, validY, validZ);
-		CartesianCoordinate cc2 = new CartesianCoordinate(validX + 100, validY, validZ);
+		CartesianCoordinate cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
+		CartesianCoordinate cc2 = CartesianCoordinate.getCartesianCoordinate(validX +100, validY, validZ);
 		
 		double delta = CartesianCoordinate.MAXDELTA;
 		double expected = 100;
@@ -94,12 +94,12 @@ public class CoordinateTest {
 
 	@Test
 	public void testIsEqual() {
-		CartesianCoordinate cc = new CartesianCoordinate(validX, validY, validZ);
-		CartesianCoordinate cc2 = new CartesianCoordinate(validX, validY, validZ);
-		CartesianCoordinate cc3 = new CartesianCoordinate(validX + 10.0, validY, validZ);
-		SphericCoordinate sc = new SphericCoordinate(validPhi, validTheta, validR);
-		SphericCoordinate sc2 = new SphericCoordinate(validPhi, validTheta, validR);
-		SphericCoordinate sc3 = new SphericCoordinate(validPhi + 1, validTheta, validR);
+		CartesianCoordinate cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);;
+		CartesianCoordinate cc2 =CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
+		CartesianCoordinate cc3 = CartesianCoordinate.getCartesianCoordinate(validX+100, validY, validZ);
+		SphericCoordinate sc = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);;
+		SphericCoordinate sc2 = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);
+		SphericCoordinate sc3 = SphericCoordinate.getSphericCoordinate(validPhi+1, validTheta, validR);
 		
 		boolean isEqual = cc.isEqual(cc2);
 		boolean isEqual2 = cc.isEqual(cc3);

@@ -57,8 +57,8 @@ public interface Coordinate {
 	public double getCentralAngle(Coordinate coord);
 
 	/**
-	 * compares the current coordinate with another one and returns if the two
-	 * coordinates are the same or semantic equal
+	 * compares the current coordinates and returns true if the two
+	 * coordinates are the same or semantic equal otherwise false
 	 * 
 	 * @methodtype comparsion
 	 * @param coord valid interpretation of a coordinate
