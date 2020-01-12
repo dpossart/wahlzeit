@@ -21,9 +21,10 @@
 package org.wahlzeit.model;
 
 import java.util.logging.Logger;
-
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 
+@DesignPattern(name = "Factory", participants = {})
 public class ChessPlayerPhotoFactory extends PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(ChessPlayerPhotoFactory.class.getName());

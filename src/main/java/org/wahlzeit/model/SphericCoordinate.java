@@ -23,10 +23,12 @@ package org.wahlzeit.model;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-public final class SphericCoordinate extends AbstractCoordinate {
+import org.wahlzeit.utils.DesignPattern;
+
+@DesignPattern(name = "Value Object", participants = {})
+public class SphericCoordinate extends AbstractCoordinate {
 
 	private static final Logger log = Logger.getLogger(SphericCoordinate.class.getName());
-
 	private static HashMap<String, SphericCoordinate> scoordMap = new HashMap<String, SphericCoordinate>();
 
 	private final double phi;
@@ -64,6 +66,9 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	public static SphericCoordinate getSphericCoordinate(double phi, double theta, double radius) {
+		phi = trimDouble(phi);
+		theta = trimDouble(theta);
+		radius = trimDouble(radius);
 		String key = "" + phi + theta + radius;
 		SphericCoordinate res = scoordMap.get(key);
 		if (res == null) {

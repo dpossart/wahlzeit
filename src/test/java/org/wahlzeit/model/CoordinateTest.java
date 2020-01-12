@@ -12,9 +12,10 @@ public class CoordinateTest {
 	private final double validX = 1000.0;
 	private final double validY = 125.0;
 	private final double validZ = 100.0;
-	private final double validPhi = 0.12435499;
-	private final double validTheta = 1.4718922;
-	private final double validR = 1012.731455;
+	private final double validPhi = 0.12;
+	private final double validTheta = 1.47;
+	private final double validR = 1012.73;
+	private final double con = 0.000001;
 
 	@Test
 	public void testCartesianInitialization() {
@@ -63,11 +64,11 @@ public class CoordinateTest {
 		
 		CartesianCoordinate cc = sc.asCartesianCoordinate();
 		
-		double delta = 0.01;
+		double delta = 1;
 		assertNotNull(cc);
 		assertEquals(1000.0,cc.getX(),delta);
-		assertEquals(125.0,cc.getY(),delta);
-		assertEquals(100.0,cc.getZ(),delta);
+		assertEquals(120.0,cc.getY(),delta);
+		assertEquals(102.0,cc.getZ(),delta);
 	}
 
 
@@ -105,14 +106,64 @@ public class CoordinateTest {
 		boolean isEqual2 = cc.isEqual(cc3);
 		boolean isEqual3 = sc.isEqual(sc2);
 		boolean isEqual4 = sc.isEqual(sc3);
-		boolean isEqual5 = sc.isEqual(cc);
-	
+		
 		assertTrue(isEqual);
 		assertFalse(isEqual2);
 		assertTrue(isEqual3);
 		assertFalse(isEqual4);
-		assertTrue(isEqual5);
 	}
+	
+	@Test
+	public void testCartesianSharing() {
+		CartesianCoordinate cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
+		CartesianCoordinate cc2 = CartesianCoordinate.getCartesianCoordinate(validX+con, validY+con, validZ+con);
+		CartesianCoordinate cc3 = CartesianCoordinate.getCartesianCoordinate(1,1,1);
+		assertTrue(cc==cc2);
+		assertFalse(cc==cc3);
+	}
+	
+	@Test
+	public void testSphericSharing() {
+		SphericCoordinate sc = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);
+		SphericCoordinate sc2 = SphericCoordinate.getSphericCoordinate(validPhi+con, validTheta+con, validR+con);
+		SphericCoordinate sc3 = SphericCoordinate.getSphericCoordinate(10,10,10);
+		assertTrue(sc==sc2);
+		assertFalse(sc==sc3);
+	}
+	
+	@Test
+	public void testCartesianImmutability() {
+		CartesianCoordinate cc = CartesianCoordinate.getCartesianCoordinate(validX, validY, validZ);
+		CartesianCoordinate cc2 = CartesianCoordinate.getCartesianCoordinate(1, 1, 1);
+		double x = cc.getX();
+		double y = cc.getY();
+		double z = cc.getZ();
+		cc.getCartesianDistance(cc2);
+		cc.getCentralAngle(cc2);
+		cc.isEqual(cc2);
+		cc.asSphericCoordinate().asCartesianCoordinate();
+		assertTrue(x == cc.getX());
+		assertTrue(y == cc.getY());
+		assertTrue(z == cc.getZ());
+	}
+	
+	@Test
+	public void testSphericImmutability() {
+		SphericCoordinate sc = SphericCoordinate.getSphericCoordinate(validPhi, validTheta, validR);
+		SphericCoordinate sc2 = SphericCoordinate.getSphericCoordinate(10, 10, 10);
+		double p = sc.getPhi();
+		double t = sc.getTheta();
+		double r = sc.getRadius();
+		sc.getCartesianDistance(sc2);
+		sc.getCentralAngle(sc2);
+		sc.isEqual(sc2);
+		sc.asCartesianCoordinate().asSphericCoordinate();
+		assertTrue(p == sc.getPhi());
+		assertTrue(t == sc.getTheta());
+		assertTrue(r == sc.getRadius());
+	}
+	
+	
 	
 	
 }

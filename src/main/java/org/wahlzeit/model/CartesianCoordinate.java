@@ -22,8 +22,10 @@ package org.wahlzeit.model;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
+import org.wahlzeit.utils.DesignPattern;
 
-public final class CartesianCoordinate extends AbstractCoordinate {
+@DesignPattern(name = "Value Object", participants = {})
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private static final Logger log = Logger.getLogger(CartesianCoordinate.class.getName());
 	private static HashMap<String, CartesianCoordinate> ccoordMap = new HashMap<String, CartesianCoordinate>();
@@ -55,7 +57,10 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
-		String key = ""+ x + y + z;
+		x = trimDouble(x);
+		y = trimDouble(y);
+		z = trimDouble(z);
+		String key = "" + x + y + z;
 		CartesianCoordinate res = ccoordMap.get(key);
 		if (res == null) {
 			synchronized (ccoordMap) {

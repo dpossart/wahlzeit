@@ -20,14 +20,16 @@
 
 package org.wahlzeit.model;
 
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 public abstract class AbstractCoordinate implements Coordinate {
 
 	private static final Logger log = Logger.getLogger(AbstractCoordinate.class.getName());
-
+	private static final DecimalFormat dec = new DecimalFormat("#.##");
+	
 	public static final double MAXDELTA = 0.001;
-
+	
 	@Override
 	public double getCartesianDistance(Coordinate coord) {
 		assertCoordinateIsNotNull(coord);
@@ -125,6 +127,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 		if (coord == null) {
 			throw new IllegalArgumentException("coordinate as null is not allowed");
 		}
+	}
+	
+	protected static double trimDouble(double d) {
+		return Double.parseDouble(dec.format(d));
 	}
 
 	abstract protected void assertClassInvariants();
