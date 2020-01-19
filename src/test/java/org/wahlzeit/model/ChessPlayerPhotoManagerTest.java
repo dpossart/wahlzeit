@@ -23,22 +23,17 @@ package org.wahlzeit.model;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 
 public class ChessPlayerPhotoManagerTest {
-
 	
 	@Test
 	public void testAddAndGetChessPlayerPhoto() throws IOException {
-		
 		ChessPlayerPhotoFactory f= ChessPlayerPhotoFactory.getInstance();
 		ChessPlayerPhotoManager m= ChessPlayerPhotoManager.getInstance();
 				
 		PhotoId id = new PhotoId(123);
-		ChessPlayerPhoto photo = f.createPhoto(id,"Bobby","New York",1965);
+		ChessPlayerPhoto photo = f.createPhoto(id,"Bobby");
 		m.addPhoto(photo);
 		assertEquals(1, m.photoCache.size());
 		assertEquals(photo,m.getPhoto(id));

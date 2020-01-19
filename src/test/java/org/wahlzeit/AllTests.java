@@ -25,9 +25,12 @@ import org.junit.runners.Suite;
 import org.wahlzeit.handlers.TellFriendTest;
 import org.wahlzeit.model.AccessRightsTest;
 import org.wahlzeit.model.CartesianCoordinate;
+import org.wahlzeit.model.ChessPlayerManagerTest;
 import org.wahlzeit.model.ChessPlayerPhotoFactoryTest;
 import org.wahlzeit.model.ChessPlayerPhotoManagerTest;
 import org.wahlzeit.model.ChessPlayerPhotoTest;
+import org.wahlzeit.model.ChessPlayerTest;
+import org.wahlzeit.model.ChessPlayerTypeTest;
 import org.wahlzeit.model.CoordinateTest;
 import org.wahlzeit.model.FlagReasonTest;
 import org.wahlzeit.model.GenderTest;
@@ -54,7 +57,7 @@ import org.wahlzeit.utils.VersionTest;
 		TagsTest.class, UserStatusTest.class, ValueTest.class, 
 		//TODO fix no api enviroment issue 
 		ChessPlayerPhotoTest.class, ChessPlayerPhotoFactoryTest.class,
-		CoordinateTest.class,
+		CoordinateTest.class, ChessPlayerTypeTest.class, ChessPlayerTest.class, ChessPlayerManagerTest.class,
 		// package model.persistence
 		DatastoreAdapterTest.class,
 		// package services

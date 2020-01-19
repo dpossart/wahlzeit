@@ -57,26 +57,28 @@ public class ChessPlayerPhotoFactory extends PhotoFactory {
 		instance = photoFactory;
 	}
 
-	public ChessPlayerPhoto createPhoto(String playerName, String place, int year) {
-		ChessPlayerPhoto cp;
+	public ChessPlayerPhoto createPhoto(String playerName) {
+		ChessPlayerPhoto cpPhoto;
 		try {
-			cp = new ChessPlayerPhoto(playerName, place, year);
+			ChessPlayer cp = ChessPlayerManager.getInstance().createChessPlayer(playerName);
+			cpPhoto = new ChessPlayerPhoto(cp);
 		} catch (IllegalArgumentException e) {
 			log.warning("creation of ChessPlayerPhoto failed: " + e.getMessage());
 			return null;
 		}
-		return cp;
+		return cpPhoto;
 	}
 
-	public ChessPlayerPhoto createPhoto(PhotoId id, String playerName, String place, int year) {
-		ChessPlayerPhoto cp;
+	public ChessPlayerPhoto createPhoto(PhotoId id, String playerName) {
+		ChessPlayerPhoto cpPhoto;
 		try {
-			cp = new ChessPlayerPhoto(id, playerName, place, year);
+			ChessPlayer cp = ChessPlayerManager.getInstance().createChessPlayer(playerName);
+			cpPhoto = new ChessPlayerPhoto(id, cp);
 		} catch (IllegalArgumentException e) {
 			log.warning("creation of ChessPlayerPhoto failed: " + e.getMessage());
 			return null;
 		}
-		return cp;
+		return cpPhoto;
 	}
 
 //	@Override

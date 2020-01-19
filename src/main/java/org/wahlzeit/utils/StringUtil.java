@@ -51,6 +51,18 @@ public class StringUtil {
 	}
 
 	/**
+	 * 
+	 */
+	public final static boolean containsDigit(String s) {
+		for (char c : s.toCharArray()) {
+			if (Character.isDigit(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 *
 	 */
 	public final static boolean isSafeWebString(String s) {
@@ -142,8 +154,8 @@ public class StringUtil {
 	}
 
 	/**
-	 * Convert separators in a filesystem path to URL separators. It does not escape the URL characters. Use
-	 * java.net.URLEncoder for this.
+	 * Convert separators in a filesystem path to URL separators. It does not escape
+	 * the URL characters. Use java.net.URLEncoder for this.
 	 *
 	 * @param path
 	 * @return

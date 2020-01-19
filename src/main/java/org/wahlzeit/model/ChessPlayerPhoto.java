@@ -20,71 +20,26 @@
 
 package org.wahlzeit.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 public class ChessPlayerPhoto extends Photo {
 
-	protected String playerName;
-	protected String place;
-	protected int year;
+	protected ChessPlayer cp;
 
-	public ChessPlayerPhoto(String playerName, String place, int year) {
+	public ChessPlayerPhoto(ChessPlayer cp) {
 		super();
-		validateString(playerName);
-		validateString(place);
-		validateYear(year);
-		this.playerName = playerName;
-		this.place = place;
-		this.year = year;
+		this.cp = cp;
 	}
 
-	public ChessPlayerPhoto(PhotoId myId, String playerName, String place, int year) {
+	public ChessPlayerPhoto(PhotoId myId, ChessPlayer cp) {
 		super(myId);
-		validateString(playerName);
-		validateString(place);
-		validateYear(year);
-		this.playerName = playerName;
-		this.place = place;
-		this.year = year;
-	}
-
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	protected void validateString(String str) {
-		boolean isValid = true;
-		for(char c : str.toCharArray()) {
-			if(Character.isDigit(c)&& (c!=" ".charAt(0))) {
-				isValid = false;
-			}
-		}
-		if (!isValid) {
-			throw new IllegalArgumentException("invalid String contains digits=" + str);
-		}
+		this.cp = cp;
 
 	}
-
-	protected void validateYear(int year) {
-		Date curTime = new Date();
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(curTime);
-		int curYear = calendar.get(Calendar.YEAR);
-
-		if (year >= curYear || year < 0) {
-			throw new IllegalArgumentException("invalid year=" + String.valueOf(year));
-		}
-
+	
+	public String getChessPlayerName() {
+		return getChessPlayer().getChessPlayerType().getPlayerName();
 	}
 
+	public ChessPlayer getChessPlayer() {
+		return cp;
+	}
 }

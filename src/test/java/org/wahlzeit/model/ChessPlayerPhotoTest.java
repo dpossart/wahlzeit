@@ -25,40 +25,36 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Before;
+
 public class ChessPlayerPhotoTest {
+
+	ChessPlayerManager man;
+
+	@Before
+	public void setUp() {
+		man = ChessPlayerManager.getInstance();
+	}
 
 	@Test
 	public void testChessPlayerPhotoInit1() {
 		String playerName = "Wassyl Ivanchuk";
-		String place = "Gibraltar";
-		int year = 2000;
-		
-		ChessPlayerPhoto cp = new ChessPlayerPhoto(playerName, place, year);
-		
-		assertEquals(playerName, cp.getPlayerName());
-		assertEquals(place, cp.getPlace());
-		assertEquals(year, cp.getYear());
-		assertNotEquals("Bla", cp.getPlayerName());
-		assertNotEquals("Bla Bla", cp.getPlace());
-		assertNotEquals(111, cp.getYear());
+		ChessPlayer c = man.createChessPlayer(playerName);
+		ChessPlayerPhoto cp = new ChessPlayerPhoto(c);
+
+		assertEquals(playerName, cp.getChessPlayer().getChessPlayerType().getPlayerName());
 	}
-	
+
 	@Test
 	public void testChessPlayerPhotoInit2() {
 		String playerName = "Wassyl Ivanchuk";
-		String place = "Gibraltar";
-		int year = 2000;
 		PhotoId id = new PhotoId(123);
-		
-		ChessPlayerPhoto cp = new ChessPlayerPhoto(id, playerName, place, year);
-		
-		assertEquals(playerName, cp.getPlayerName());
-		assertEquals(place, cp.getPlace());
-		assertEquals(year, cp.getYear());
+		ChessPlayer c = man.createChessPlayer(playerName);
+		ChessPlayerPhoto cp = new ChessPlayerPhoto(id, c);
+
+		assertEquals(playerName, cp.getChessPlayer().getChessPlayerType().getPlayerName());
 		assertEquals(id, cp.getId());
-		assertNotEquals("Bla", cp.getPlayerName());
-		assertNotEquals("Bla Bla", cp.getPlace());
-		assertNotEquals(111, cp.getYear());
+		assertNotEquals("Bla", cp.getChessPlayer().getChessPlayerType().getPlayerName());
 		assertNotEquals(new PhotoId(120931), cp.getId());
 	}
 }

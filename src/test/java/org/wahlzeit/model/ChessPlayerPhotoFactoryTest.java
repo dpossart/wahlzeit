@@ -26,41 +26,34 @@ import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
-
-
 public class ChessPlayerPhotoFactoryTest {
-
 	ChessPlayerPhotoFactory f = null;
+	ChessPlayerManager man = null;
 	ChessPlayerPhoto p1 = null;
 	ChessPlayerPhoto p2 = null;
 	String name = "Bobby";
-	String place = "New York";
-	int year = 1965;
 	PhotoId id = new PhotoId(123);
 	
 	@Before
 	public void setup() throws Exception {
 		f = ChessPlayerPhotoFactory.getInstance();
-		p1 = new ChessPlayerPhoto(name, place, year);
-		p2  = new ChessPlayerPhoto(id, name, place, year);
+		man = ChessPlayerManager.getInstance();
+		ChessPlayer cp = man.createChessPlayer(name);
+		p1 = new ChessPlayerPhoto(cp);
+		p2  = new ChessPlayerPhoto(id, cp);
 	}
 	
 	@Test
 	public void testCreatePhoto() {
-		ChessPlayerPhoto cpp = f.createPhoto(name, place, year);
+		ChessPlayerPhoto cpp = f.createPhoto(name);
 		assertNotNull(cpp);
-		assertEquals(p1.getPlayerName(), cpp.getPlayerName());
-		assertEquals(p1.getPlace(), cpp.getPlace());
-		assertEquals(p1.getYear(), cpp.getYear());
+		assertEquals(p1.getChessPlayerName(), cpp.getChessPlayerName());
 	}
 	
 	public void testCreatePhoto2() {
-		ChessPlayerPhoto cpp = f.createPhoto(name, place, year);
+		ChessPlayerPhoto cpp = f.createPhoto(name);
 		assertNotNull(cpp);
 		assertEquals(p2.getId(), cpp.getId());
-		assertEquals(p2.getPlayerName(), cpp.getPlayerName());
-		assertEquals(p2.getPlace(), cpp.getPlace());
-		assertEquals(p2.getYear(), cpp.getYear());
+		assertEquals(p2.getChessPlayerName(), cpp.getChessPlayerName());
 	}
 }
