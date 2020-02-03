@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 by Dennis Possart
+ * Copyright (c) 2019 by Dennis Possart, http://dirkriehle.com
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -20,25 +20,16 @@
 
 package org.wahlzeit.model;
 
-public class ChessPlayerPhoto extends Photo {
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.wahlzeit.model.persistence.DatastoreAdapterTest;
 
-	protected ChessPlayer cp;
-
-	public ChessPlayerPhoto(ChessPlayer cp) {
-		super();
-		this.cp = cp;
-	}
-
-	public ChessPlayerPhoto(PhotoId myId, ChessPlayer cp) {
-		super(myId);
-		this.cp = cp;
-	}
-	
-	public String getChessPlayerName() {
-		return getChessPlayer().getChessPlayerType().getPlayerName();
-	}
-
-	public ChessPlayer getChessPlayer() {
-		return cp;
-	}
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ AccessRightsTest.class, FlagReasonTest.class, GenderTest.class, GuestTest.class,
+		PhotoFilterTest.class, TagsTest.class, UserStatusTest.class, ValueTest.class, ChessPlayerPhotoTest.class,
+		ChessPlayerPhotoFactoryTest.class, CoordinateTest.class, ChessPlayerTypeTest.class, ChessPlayerTest.class,
+		ChessPlayerManagerTest.class,
+		// package model.persistence
+		DatastoreAdapterTest.class, })
+public class ModelTests {
 }

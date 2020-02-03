@@ -23,47 +23,22 @@ package org.wahlzeit;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.wahlzeit.handlers.TellFriendTest;
-import org.wahlzeit.model.AccessRightsTest;
-import org.wahlzeit.model.CartesianCoordinate;
-import org.wahlzeit.model.ChessPlayerManagerTest;
-import org.wahlzeit.model.ChessPlayerPhotoFactoryTest;
-import org.wahlzeit.model.ChessPlayerPhotoManagerTest;
-import org.wahlzeit.model.ChessPlayerPhotoTest;
-import org.wahlzeit.model.ChessPlayerTest;
-import org.wahlzeit.model.ChessPlayerTypeTest;
-import org.wahlzeit.model.CoordinateTest;
-import org.wahlzeit.model.FlagReasonTest;
-import org.wahlzeit.model.GenderTest;
-import org.wahlzeit.model.GuestTest;
-import org.wahlzeit.model.PhotoFilterTest;
-import org.wahlzeit.model.TagsTest;
-import org.wahlzeit.model.UserStatusTest;
-import org.wahlzeit.model.ValueTest;
-import org.wahlzeit.model.persistence.DatastoreAdapterTest;
+import org.wahlzeit.model.ModelTests;
 import org.wahlzeit.services.EmailAddressTest;
 import org.wahlzeit.services.LogBuilderTest;
 import org.wahlzeit.services.mailing.EmailServiceTestSuite;
 import org.wahlzeit.utils.StringUtilTest;
 import org.wahlzeit.utils.VersionTest;
 
-
-//TODO group tests in package suits
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		// package handlers
 		TellFriendTest.class,
 		// package model
-		AccessRightsTest.class, FlagReasonTest.class, GenderTest.class, GuestTest.class, PhotoFilterTest.class,
-		TagsTest.class, UserStatusTest.class, ValueTest.class, 
-		//TODO fix no api enviroment issue 
-		ChessPlayerPhotoTest.class, ChessPlayerPhotoFactoryTest.class,
-		CoordinateTest.class, ChessPlayerTypeTest.class, ChessPlayerTest.class, ChessPlayerManagerTest.class,
-		// package model.persistence
-		DatastoreAdapterTest.class,
+		ModelTests.class,
 		// package services
 		EmailAddressTest.class, LogBuilderTest.class,
 		// package services.mailing
-		// use the already existing TestSuite there
 		EmailServiceTestSuite.class,
 		// package utils
 		StringUtilTest.class, VersionTest.class,

@@ -11,13 +11,17 @@ public class ChessPlayerManager extends ObjectManager {
 	private final Map<Long, ChessPlayer> chessPlayers;
 	private final Map<String, ChessPlayerType> chessPlayerTypes;
 
-	public static ChessPlayerManager instance = new ChessPlayerManager();
+	public static final ChessPlayerManager instance = new ChessPlayerManager();
 
 	private ChessPlayerManager() {
 		chessPlayers = new HashMap<Long, ChessPlayer>();
 		chessPlayerTypes = new HashMap<String, ChessPlayerType>();
 	}
-
+	
+	/**
+	 * 
+	 * @return 
+	 */
 	public static ChessPlayerManager getInstance() {
 		return instance;
 	}

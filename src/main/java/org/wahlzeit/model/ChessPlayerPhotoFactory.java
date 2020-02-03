@@ -37,7 +37,6 @@ public class ChessPlayerPhotoFactory extends PhotoFactory {
 
 	public static void initialize() {
 		getInstance();
-
 	}
 
 	public static synchronized ChessPlayerPhotoFactory getInstance() {
